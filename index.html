@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع المقالات</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>موقع المقالات</h1>
+        <nav>
+            <a href="admin.html">لوحة الإدارة</a>
+        </nav>
+    </header>
+    <main>
+        <nav>
+            <select id="categoryFilter" onchange="filterArticles()">
+                <option value="all">كل الأقسام</option>
+                <option value="technology">تكنولوجيا</option>
+                <option value="health">صحة</option>
+                <option value="sports">رياضة</option>
+            </select>
+        </nav>
+        <section id="articles">
+            <!-- المقالات ستظهر هنا -->
+        </section>
+    </main>
+    <script src="scripts.js"></script>
+</body>
+</html>
