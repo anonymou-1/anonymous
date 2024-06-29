@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الإدارة</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>لوحة الإدارة</h1>
+    </header>
+    <main>
+        <section id="admin-section">
+            <form id="login-form">
+                <h2>تسجيل الدخول</h2>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور">
+                <button type="button" onclick="login()">دخول</button>
+            </form>
+            <form id="article-form" style="display:none;">
+                <h2>نشر مقال جديد</h2>
+                <input type="text" id="title" placeholder="عنوان المقال">
+                <textarea id="content" placeholder="محتوى المقال"></textarea>
+                <select id="category">
+                    <option value="technology">تكنولوجيا</option>
+                    <option value="health">صحة</option>
+                    <option value="sports">رياضة</option>
+                </select>
+                <button type="button" onclick="addArticle()">نشر</button>
+            </form>
+            <section id="admin-articles" style="display:none;">
+                <h2>إدارة المقالات</h2>
+                <div id="articles-management">
+                    <!-- المقالات ستظهر هنا -->
+                </div>
+            </section>
+        </section>
+    </main>
+    <script src="scripts.js"></script>
+</body>
+</html>
