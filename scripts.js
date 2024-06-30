@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminSection = document.getElementById('admin-section');
     const loginSection = document.getElementById('login-section');
 
-    const storedPassword = localStorage.getItem('adminPassword') || 'admin123';
+    const storedPassword = localStorage.getItem('adminPassword') || 'anonymous55';
 
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
