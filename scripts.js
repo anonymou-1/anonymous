@@ -1,125 +1,62 @@
-document.addEventListener('DOMContentLoaded', function() {
-    loadArticles();
-    if (window.location.pathname.endsWith('admin.html')) {
-        loadAdminArticles();
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    const passwordInput = document.getElementById('password');
+    const adminSection = document.getElementById('admin-section');
+    const loginSection = document.getElementById('login-section');
+
+    const storedPassword = localStorage.getItem('adminPassword') || 'admin123';
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (passwordInput.value === storedPassword) {
+            loginSection.style.display = 'none';
+            adminSection.style.display = 'block';
+        } else {
+            alert('كلمة المرور غير صحيحة');
+        }
+    });
+
+    document.getElementById('add-article-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const title = document.getElementById('article-title').value;
+        const content = document.getElementById('article-content').value;
+        const imageInput = document.getElementById('article-image');
+        const articlesList = document.getElementById('articles-list');
+
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const article = document.createElement('div');
+                article.innerHTML = `<h3>${title}</h3><img src="${e.target.result}" alt="Article Image"><p>${content}</p>`;
+                articlesList.appendChild(article);
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            const article = document.createElement('div');
+            article.innerHTML = `<h3>${title}</h3><p>${content}</p>`;
+            articlesList.appendChild(article);
+        }
+
+        document.getElementById('article-title').value = '';
+        document.getElementById('article-content').value = '';
+        document.getElementById('article-image').value = '';
+    });
+
+    document.getElementById('add-tip-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const content = document.getElementById('tip-content').value;
+        const tipsList = document.getElementById('tips-list');
+        const tip = document.createElement('div');
+        tip.innerHTML = `<p>${content}</p>`;
+        tipsList.appendChild(tip);
+        document.getElementById('tip-content').value = '';
+    });
+
+    document.getElementById('change-password-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newPassword = document.getElementById('new-password').value;
+        localStorage.setItem('adminPassword', newPassword);
+        alert('تم تغيير كلمة المرور بنجاح');
+        document.getElementById('new-password').value = '';
+    });
 });
-
-// تحقق من كلمة المرور
-function login() {
-    const password = document.getElementById('password').value;
-    if (password === 'admin123') { // كلمة المرور
-        document.getElementById('login-form').style.display = 'none';
-        document.getElementById('article-form').style.display = 'block';
-        document.getElementById('admin-articles').style.display = 'block';
-        loadAdminArticles(); // تحميل المقالات بعد تسجيل الدخول
-    } else {
-        alert('كلمة المرور غير صحيحة');
-    }
-}
-
-// إضافة مقال جديد
-function addArticle() {
-    const title = document.getElementById('title').value;
-    const content = document.getElementById('content').value;
-    const category = document.getElementById('category').value;
-
-    if (title && content) {
-        // إنشاء المقال
-        const article = { title, content, category };
-        
-        // جلب المقالات الموجودة من LocalStorage
-        const articles = JSON.parse(localStorage.getItem('articles')) || [];
-        
-        // إضافة المقال الجديد
-        articles.push(article);
-        
-        // تخزين المقالات المحدثة في LocalStorage
-        localStorage.setItem('articles', JSON.stringify(articles));
-        
-        // إعادة توجيه إلى صفحة الإدارة لعرض المقالات المحدثة
-        loadAdminArticles();
-    } else {
-        alert('يرجى ملء جميع الحقول');
-    }
-}
-
-// تحميل المقالات من LocalStorage وعرضها في الصفحة الرئيسية
-function loadArticles() {
-    const articles = JSON.parse(localStorage.getItem('articles')) || [];
-    const articlesContainer = document.getElementById('articles');
-    
-    articlesContainer.innerHTML = '';
-    
-    articles.forEach(article => {
-        const articleElement = document.createElement('article');
-        const articleTitle = document.createElement('h2');
-        articleTitle.textContent = article.title;
-        const articleContent = document.createElement('p');
-        articleContent.textContent = article.content;
-
-        articleElement.appendChild(articleTitle);
-        articleElement.appendChild(articleContent);
-
-        articlesContainer.appendChild(articleElement);
-    });
-}
-
-// تحميل المقالات في لوحة الإدارة
-function loadAdminArticles() {
-    const articles = JSON.parse(localStorage.getItem('articles')) || [];
-    const adminArticlesContainer = document.getElementById('articles-management');
-    
-    adminArticlesContainer.innerHTML = '';
-
-    articles.forEach((article, index) => {
-        const articleElement = document.createElement('article');
-        const articleTitle = document.createElement('h2');
-        articleTitle.textContent = article.title;
-        const articleContent = document.createElement('p');
-        articleContent.textContent = article.content;
-
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'حذف';
-        deleteButton.onclick = function() {
-            deleteArticle(index);
-        };
-
-        articleElement.appendChild(articleTitle);
-        articleElement.appendChild(articleContent);
-        articleElement.appendChild(deleteButton);
-
-        adminArticlesContainer.appendChild(articleElement);
-    });
-}
-
-// حذف المقال
-function deleteArticle(index) {
-    let articles = JSON.parse(localStorage.getItem('articles')) || [];
-    articles.splice(index, 1);
-    localStorage.setItem('articles', JSON.stringify(articles));
-    loadAdminArticles();
-    loadArticles();
-}
-
-// تصفية المقالات حسب القسم
-function filterArticles() {
-    const selectedCategory = document.getElementById('categoryFilter').value;
-    const articles = JSON.parse(localStorage.getItem('articles')) || [];
-    const articlesContainer = document.getElementById('articles');
-    
-    articlesContainer.innerHTML = '';
-    
-    articles.filter(article => selectedCategory === 'all' || article.category === selectedCategory).forEach(article => {
-        const articleElement = document.createElement('article');
-        const articleTitle = document.createElement('h2');
-        articleTitle.textContent = article.title;
-        const articleContent = document.createElement('p');
-        articleContent.textContent = article.content;
-
-        articleElement.appendChild(articleTitle);
-        articleElement.appendChild(articleContent);
-
-        articlesContainer.appendChild(articleElement);
-    });
-}
