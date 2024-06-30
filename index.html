@@ -8,24 +8,28 @@
 </head>
 <body>
     <header>
-        <h1>موقع المقالات</h1>
-        <nav>
-            <a href="admin.html">لوحة الإدارة</a>
-        </nav>
+        <h1>مرحبا بكم في موقع المقالات</h1>
     </header>
+    <nav>
+        <ul>
+            <li><a href="#">المقالات</a></li>
+            <li><a href="#">النصائح اليومية</a></li>
+            <li><a href="admin.html">لوحة الأدمن</a></li>
+        </ul>
+    </nav>
     <main>
-        <nav>
-            <select id="categoryFilter" onchange="filterArticles()">
-                <option value="all">كل الأقسام</option>
-                <option value="technology">تكنولوجيا</option>
-                <option value="health">صحة</option>
-                <option value="sports">رياضة</option>
-            </select>
-        </nav>
         <section id="articles">
-            <!-- المقالات ستظهر هنا -->
+            <h2>المقالات</h2>
+            <div id="articles-list"></div>
+        </section>
+        <section id="tips">
+            <h2>النصائح اليومية</h2>
+            <div id="tips-list"></div>
         </section>
     </main>
-    <script src="scripts.js"></script>
+    <footer>
+        <p>© 2024 موقع المقالات</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
