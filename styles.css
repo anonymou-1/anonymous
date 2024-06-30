@@ -5,16 +5,30 @@ body {
     padding: 0;
 }
 
-header {
-    background-color: #333;
-    color: white;
-    padding: 10px 0;
+header, footer {
+    background-color: #f4f4f4;
     text-align: center;
+    padding: 1em 0;
 }
 
-nav a {
-    color: white;
+nav {
+    background-color: #333;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
     margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
     text-decoration: none;
 }
 
@@ -23,27 +37,26 @@ main {
 }
 
 form {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin: 10px 0;
 }
 
-input, textarea, select {
+label {
+    display: block;
+    margin: 5px 0;
+}
+
+input, textarea {
     width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
 }
 
 button {
     padding: 10px 20px;
     background-color: #333;
-    color: white;
+    color: #fff;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -51,14 +64,7 @@ button:hover {
     background-color: #555;
 }
 
-article {
-    border: 1px solid #ccc;
-    margin: 10px 0;
-    padding: 10px;
-}
-
-article button {
-    background-color: red;
-    margin-top: 10px;
-    cursor: pointer;
+article img {
+    max-width: 100%;
+    height: auto;
 }
